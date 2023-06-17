@@ -13,6 +13,16 @@ Tem como objetivo atingir um público de pequenos produtores agricultores, ajud�
     - [x] Escolhendo liguagem Java 17 e gerenciador de dependência Maven.
     - [x] Colocando nome(Group, Artifact, Name, Description).
     - [x] Incluindo dependências (H2, JPA e Spring Web).
+
+- [x] Alterando o pom.xml incluindo plugin para compatiblidade.
+
+```
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-resources-plugin</artifactId>
+	<version>3.1.0</version> <!--$NO-MVN-MAN-VER$ -->
+</plugin>
+```
 - [ ] Criar classes de negocio.
     - [ ] Produto.
     - [ ] Categoria.
