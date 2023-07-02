@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_produtos")
-public class Protudo implements Serializable {
+public class Produto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
@@ -19,10 +19,10 @@ public class Protudo implements Serializable {
     private Integer qtd;
 
 
-    public Protudo() {
+    public Produto() {
     }
 
-    public Protudo(Long id, String nome, String descricao, Double preco, Integer qtd) {
+    public Produto(Long id, String nome, String descricao, Double preco, Integer qtd) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -73,7 +73,7 @@ public class Protudo implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Protudo protudo)) return false;
+        if (!(o instanceof Produto protudo)) return false;
         return getId().equals(protudo.getId());
     }
 
