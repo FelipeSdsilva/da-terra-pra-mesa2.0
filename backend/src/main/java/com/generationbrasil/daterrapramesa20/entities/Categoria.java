@@ -3,6 +3,7 @@ package com.generationbrasil.daterrapramesa20.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,14 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant createAt;
+
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant updateAt;
+
 
     public Categoria() {
     }
@@ -37,6 +46,24 @@ public class Categoria implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Instant getCreateAt() {
+        return createAt;
+    }
+
+    public Instant getUpdateAt() {
+        return updateAt;
+    }
+
+    @PrePersist
+    public void prePersist(){
+        createAt = Instant.now();
+    }
+
+    @PreUpdate
+    public void preUpdated(){
+        updateAt = Instant.now();
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.generationbrasil.daterrapramesa20.dto.CategoriaDTO;
 import com.generationbrasil.daterrapramesa20.entities.Categoria;
 import com.generationbrasil.daterrapramesa20.repositories.CategoriaRepository;
 import com.generationbrasil.daterrapramesa20.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,10 +37,14 @@ public class CategoriaService {
 
     @Transactional
     public CategoriaDTO atualizarCategoria(Long id, CategoriaDTO dto) {
-        Categoria categoria = categoriaRepository.getReferenceById(id);
-        categoria.setNome(dto.getNome());
-        categoria = categoriaRepository.save(categoria);
-        return new CategoriaDTO(categoria);
+        try {
+            Categoria categoria = categoriaRepository.getReferenceById(id);
+            categoria.setNome(dto.getNome());
+            categoria = categoriaRepository.save(categoria);
+            return new CategoriaDTO(categoria);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Id:" + id + "não existente!");
+        }
     }
 
     public void deletarCategoriaPorId(Long id) {
