@@ -3,11 +3,13 @@ package com.generationbrasil.daterrapramesa20.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
-@Table(name = "tb_produtos")
+@Table(name = "tb_produto")
 public class Produto implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -15,20 +17,29 @@ public class Produto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
+    @Column(columnDefinition = "TEXT")
     private String descricao;
     private Double preco;
     private Integer qtd;
+    private String imgUrl;
 
+    @ManyToMany
+    @JoinTable(name = "tb_produto_categoria",
+            joinColumns = @JoinColumn(name = "produto_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    private Set<Categoria> categorias = new HashSet<>();
 
     public Produto() {
     }
 
-    public Produto(Long id, String nome, String descricao, Double preco, Integer qtd) {
+    public Produto(Long id, String nome, String descricao, Double preco, Integer qtd, String imgUrl) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.qtd = qtd;
+        this.imgUrl = imgUrl;
     }
 
     public Long getId() {
@@ -69,6 +80,18 @@ public class Produto implements Serializable {
 
     public void setQtd(Integer qtd) {
         this.qtd = qtd;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public Set<Categoria> getCategorias() {
+        return categorias;
     }
 
     @Override
