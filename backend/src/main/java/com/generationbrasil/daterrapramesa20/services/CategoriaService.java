@@ -6,10 +6,10 @@ import com.generationbrasil.daterrapramesa20.repositories.CategoriaRepository;
 import com.generationbrasil.daterrapramesa20.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class CategoriaService {
@@ -18,8 +18,8 @@ public class CategoriaService {
     private CategoriaRepository categoriaRepository;
 
     @Transactional(readOnly = true)
-    public List<CategoriaDTO> listarCategorias() {
-        return categoriaRepository.findAll().stream().map(CategoriaDTO::new).toList();
+    public Page<CategoriaDTO> paginarCategorias(Pageable pageable) {
+        return categoriaRepository.findAll(pageable).map(CategoriaDTO::new);
     }
 
     @Transactional(readOnly = true)
